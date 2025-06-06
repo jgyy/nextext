@@ -221,3 +221,41 @@ export const createForestScenes = (gameState: GameState, actions: GameActions): 
     ]
   }
 });
+
+export const enhancedForestPath = (gameState: GameState, actions: GameActions): Scene => ({
+  title: "Into the Heart of Mystery",
+  description: "The forest grows denser and more magical as you venture deeper. Luminescent flowers bloom along the path, their petals glowing with soft blue light. The very air seems alive with possibility and ancient power - you can feel magical energies stirring within you, responding to this mystical place.\n\nSomewhere in the distance, you hear the melodic sound of running water, while ahead, ancient stone ruins peek through the canopy. But there's something else - a shimmering grove where the very fabric of magic seems more concentrated, calling to something deep within your soul.",
+  choices: [
+    {
+      text: "Follow the melodic sound of water",
+      action: () => actions.changeScene("crystal_stream")
+    },
+    {
+      text: "Climb toward the ancient ruins",
+      action: () => actions.changeScene("temple_approach")
+    },
+    {
+      text: "Investigate the shimmering magical grove",
+      action: () => {
+        actions.addScore(25);
+        actions.changeScene("magic_discovery");
+      }
+    },
+    {
+      text: "Rest and prepare for what lies ahead",
+      action: () => actions.changeScene("forest_rest")
+    },
+    {
+      text: "Search for hidden paths",
+      action: () => actions.changeScene("secret_paths"),
+      skillCheck: { type: 'stealth', difficulty: 3 }
+    },
+    {
+      text: "Take time to check your progress and plan",
+      action: () => actions.changeScene("rest_and_prepare")
+    }
+  ]
+});
+
+export const getEnhancedForestPath = (gameState: GameState, actions: GameActions): Scene => 
+  enhancedForestPath(gameState, actions);

@@ -28,197 +28,202 @@ export const createAdditionalScenes = (gameState: GameState, actions: GameAction
     ]
   },
 
-  respectful_greeting: {
-    title: "Formal Courtesy",
-    description: "You bow respectfully to the ancient dragon, showing the proper deference due to such a magnificent and wise creature. Auraxes seems pleased by your manners. 'It has been centuries since someone greeted me with proper respect. You clearly understand that wisdom and age deserve courtesy. I am intrigued by you, young seeker.'",
+  crystal_tribute: {
+    title: "Gift of Vision",
+    description: "Auraxes's eyes widen with genuine surprise as you offer the Crystal of Visions. 'You would give up such a powerful artifact? This crystal shows truth and reveals hidden paths. Yet you offer it freely to me.' Her voice carries notes of wonder and growing respect.\n\n'This gift tells me more about your character than any words could. You understand that true wealth comes from giving, not taking.'",
     choices: [
       {
-        text: "Ask permission to learn from the dragon",
-        action: () => actions.changeScene("learning_request")
-      },
-      {
-        text: "Inquire about the dragon's long solitude",
-        action: () => actions.changeScene("solitude_question")
-      },
-      {
-        text: "Offer to share news of the outside world",
-        action: () => actions.changeScene("world_news")
-      }
-    ]
-  },
-
-  treasure_chamber: {
-    title: "The Heart of the Temple",
-    description: "You enter a magnificent chamber where the legendary Golden Orb floats in the center, surrounded by countless books, scrolls, and artifacts of incredible value. But now, having journeyed this far, you understand that the real treasure isn't gold—it's the wisdom and growth you've gained along the way.",
-    choices: [
-      {
-        text: "Approach the Golden Orb with understanding",
-        action: () => actions.changeScene("enlightened_approach")
-      },
-      {
-        text: "Study the ancient books and scrolls first",
-        action: () => actions.changeScene("scholarly_investigation")
-      },
-      {
-        text: "Call out to the dragon to share this moment",
-        action: () => actions.changeScene("shared_discovery")
-      }
-    ]
-  },
-
-  enlightened_approach: {
-    title: "True Understanding",
-    description: "As you approach the Golden Orb with your newfound wisdom, it begins to glow more brightly. You realize this isn't just a treasure to be claimed, but a test of your character and growth. The orb seems to respond to your understanding, revealing its true nature as a repository of ancient knowledge and compassion.",
-    choices: [
-      {
-        text: "Touch the orb to accept its wisdom",
+        text: "Explain that wisdom shared grows stronger",
         action: () => {
-          actions.changeScene("wisdom_victory");
+          actions.addScore(150);
+          actions.addAchievement("Generous Heart");
+          actions.changeScene("wisdom_sharing");
         }
       },
       {
-        text: "Ask the orb to teach you",
-        action: () => actions.changeScene("orb_teaching")
+        text: "Say the crystal belongs with a true guardian",
+        action: () => actions.changeScene("guardian_recognition")
       },
       {
-        text: "Request to share this knowledge with others",
-        action: () => actions.changeScene("sharing_wisdom")
+        text: "Ask to learn from her vast knowledge",
+        action: () => actions.changeScene("student_request")
       }
     ]
   },
 
-  dragon_wisdom_guidance: {
-    title: "Wisdom for the Dragon",
-    description: "The spirit wolf shares ancient knowledge about approaching dragons. 'Speak to its loneliness, not its fear. Dragons are not meant to live in isolation—they are teachers by nature. Show Auraxes that the world still values learning, and you may find a friend rather than a foe.'",
+  wisdom_tribute: {
+    title: "Knowledge Given Freely",
+    description: "When you offer the tome of Ancient Wisdom, Auraxes's expression becomes one of profound respect. 'You offer knowledge itself as tribute. This shows you understand that wisdom is meant to be shared, not hoarded. Few comprehend this truth.'\n\nShe carefully takes the tome, her claws gentle despite their fearsome size. 'Such a gift deserves a worthy response.'",
     choices: [
       {
-        text: "Ask how to prove the world values learning",
-        action: () => actions.changeScene("proving_learning_value")
-      },
-      {
-        text: "Request the wolf's blessing for this task",
+        text: "Ask to exchange knowledge",
         action: () => {
-          actions.addToInventory("Wolf's Wisdom");
-          actions.changeScene("wolf_blessed");
+          actions.addScore(125);
+          actions.changeScene("knowledge_exchange");
         }
       },
       {
-        text: "Head to the temple with this guidance",
-        action: () => actions.changeScene("ruins")
+        text: "Request to become her student",
+        action: () => actions.changeScene("devoted_student")
+      },
+      {
+        text: "Suggest establishing a new school together",
+        action: () => actions.changeScene("school_proposal")
       }
     ]
   },
 
-  second_chance: {
-    title: "Redemption Offered",
-    description: "The dragon, seeing your reconsideration, softens slightly. 'Perhaps there is hope for you yet. True wisdom sometimes comes through recognizing our mistakes. I will offer you the choice again, but this time, think carefully about what truly matters in this world.'",
+  blessing_tribute: {
+    title: "Sacred Gift",
+    description: "Auraxes gasps softly as you offer the Unicorn's Blessing. 'A blessing from the pure of heart... You would share such divine grace with me? This is perhaps the most precious gift anyone has offered in centuries.'\n\nTears glisten in the ancient dragon's eyes. 'You see me not as a monster to be defeated, but as a being worthy of blessing. This changes everything.'",
     choices: [
       {
-        text: "Choose knowledge that helps others",
-        action: () => actions.changeScene("compassion_choice")
+        text: "Explain that all beings deserve compassion",
+        action: () => {
+          actions.addScore(200);
+          actions.addAchievement("Pure Compassion");
+          actions.changeScene("compassion_realized");
+        }
       },
       {
-        text: "Ask the dragon to explain the difference",
-        action: () => actions.changeScene("wisdom_explanation")
+        text: "Ask to share in her loneliness",
+        action: () => actions.changeScene("shared_solitude")
       },
       {
-        text: "Admit you're still learning right from wrong",
-        action: () => actions.changeScene("humble_learning")
+        text: "Suggest the blessing can help her reconnect with the world",
+        action: () => actions.changeScene("reconnection_hope")
       }
     ]
   },
 
-  lesson_in_loss: {
-    title: "Understanding Consequences",
-    description: "The dragon explains sadly, 'You have lost the chance to gain wisdom that could have changed countless lives. Knowledge of healing, of bringing peace, of understanding the hearts of others—all this could have been yours. Instead, you chose gold that will tarnish and jewels that will lose their luster. This is why so few find the true treasure.'",
+  learning_approach: {
+    title: "The Student's Heart",
+    description: "Your words about seeking to learn rather than take resonate deeply with Auraxes. Her entire demeanor shifts from guarded wariness to eager interest. 'A student! It has been so long since anyone came here to learn rather than to plunder. You remind me of why I chose to guard knowledge in the first place.'",
     choices: [
       {
-        text: "Ask if there's any way to make amends",
-        action: () => actions.changeScene("seeking_redemption")
+        text: "Express genuine desire to understand",
+        action: () => {
+          actions.addScore(100);
+          actions.changeScene("understanding_quest");
+        }
       },
       {
-        text: "Accept this lesson and leave",
-        action: () => actions.changeScene("hollow_victory")
+        text: "Ask about her role as a teacher",
+        action: () => actions.changeScene("teacher_role")
       },
       {
-        text: "Promise to use the treasure to help others",
-        action: () => actions.changeScene("redemptive_promise")
+        text: "Offer to help preserve her knowledge",
+        action: () => actions.changeScene("preservation_offer")
       }
     ]
   },
 
-  seeking_redemption: {
-    title: "The Path Back",
-    description: "You return to the dragon, hoping to make amends for your earlier choice. Auraxes regards you with ancient eyes full of both disappointment and hope. 'So, you have discovered that gold cannot fill the emptiness where wisdom should reside. Few have the courage to return and admit their mistake. Perhaps redemption is possible.'",
+  companion_offer: {
+    title: "Offering Companionship",
+    description: "Your offer to ease the dragon's loneliness touches something deep in Auraxes's ancient heart. Her massive eyes glisten with what might be tears. 'Companionship... yes, that is what I have missed most. A thousand years of solitude, watching the world forget that wisdom matters, that knowledge should be shared.'\n\nShe looks at you with new hope. 'You are the first in centuries to see my pain rather than simply fearing my power.'",
     choices: [
       {
-        text: "Offer to give back the treasure",
-        action: () => actions.changeScene("treasure_return")
+        text: "Offer to stay and learn from her",
+        action: () => {
+          actions.addScore(150);
+          actions.changeScene("permanent_student");
+        }
       },
       {
-        text: "Ask to serve the dragon to make amends",
-        action: () => actions.changeScene("service_penance")
+        text: "Suggest she return to teaching others",
+        action: () => actions.changeScene("teaching_revival")
       },
       {
-        text: "Request a chance to start over",
-        action: () => actions.changeScene("fresh_start")
+        text: "Propose building a new community of learners",
+        action: () => actions.changeScene("learning_community")
       }
     ]
   },
 
-  learning_request: {
-    title: "The Student's Plea",
-    description: "You humbly ask the dragon to become your teacher. Auraxes considers this carefully. 'Learning requires patience, dedication, and the humility to accept that you know very little. It is not a path for those seeking quick power or easy answers. Are you truly prepared for the long journey of understanding?'",
+  solitude_promise: {
+    title: "A Vow to End Loneliness",
+    description: "Your promise to help end her centuries of solitude brings visible relief to the ancient dragon. 'Such a promise... if you truly mean it, you offer something more valuable than all the gold in my treasury. But how can one person end a thousand years of isolation?'",
     choices: [
       {
-        text: "Commit to patient, long-term learning",
-        action: () => actions.changeScene("dedicated_student")
+        text: "Suggest she can teach the world again",
+        action: () => {
+          actions.addScore(100);
+          actions.changeScene("world_teaching");
+        }
       },
       {
-        text: "Ask what the first lesson would be",
-        action: () => actions.changeScene("first_lesson")
+        text: "Offer to be her voice to the outside world",
+        action: () => actions.changeScene("dragon_ambassador")
       },
       {
-        text: "Admit you're not sure but want to try",
-        action: () => actions.changeScene("uncertain_but_willing")
+        text: "Propose turning the temple into a school",
+        action: () => actions.changeScene("temple_school")
       }
     ]
   },
 
-  solitude_question: {
-    title: "Breaking the Silence",
-    description: "When you ask about the dragon's long solitude, Auraxes's expression grows distant and melancholy. 'A thousand years of silence, young one. A thousand years of watching the world forget that wisdom matters, that knowledge is meant to be shared, that teaching is the highest calling. You are the first in decades to even ask.'",
+  wisdom_path: {
+    title: "The Scholar's Route",
+    description: "Using your vision knowledge, you navigate through the temple's hidden scholarly passages. These corridors are lined with beautiful murals depicting the history of learning, and you can sense the approval of generations of scholars who walked these halls.\n\nWhen you finally emerge into the dragon's chamber, Auraxes looks up from an ancient tome with surprise and delight.",
     choices: [
       {
-        text: "Offer to help end that solitude",
-        action: () => actions.changeScene("companionship_offer")
+        text: "Greet her as a fellow scholar",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("scholarly_greeting");
+        }
       },
       {
-        text: "Ask what happened to the last students",
-        action: () => actions.changeScene("lost_students")
+        text: "Show respect for the scholarly traditions",
+        action: () => actions.changeScene("tradition_respect")
       },
       {
-        text: "Suggest the world needs teachers now more than ever",
-        action: () => actions.changeScene("teaching_hope")
+        text: "Ask about the murals you passed",
+        action: () => actions.changeScene("mural_discussion")
       }
     ]
   },
 
-  world_news: {
-    title: "Tales from Beyond",
-    description: "You share stories of the outside world—the hermit's kindness, the unicorn's wisdom, the spirit wolf's guidance. The dragon listens with growing wonder. 'You speak of magic and wisdom still alive in the world. I had begun to believe that only greed and violence remained. Your tales give me hope that perhaps... perhaps there is still a place for old teachers like me.'",
+  compassion_path: {
+    title: "The Way of the Heart",
+    description: "The compassion path leads you through chambers filled with healing herbs and charitable works of past temple inhabitants. You see evidence of the dragon's secret kindness - food left for forest creatures, healing potions prepared for injured travelers.\n\nWhen you enter her presence, Auraxes seems surprised that someone found this particular route.",
     choices: [
       {
-        text: "Assure the dragon the world needs its wisdom",
-        action: () => actions.changeScene("world_needs_wisdom")
+        text: "Acknowledge her hidden kindness",
+        action: () => {
+          actions.addScore(100);
+          actions.changeScene("kindness_recognized");
+        }
       },
       {
-        text: "Invite the dragon to see the world again",
-        action: () => actions.changeScene("journey_invitation")
+        text: "Thank her for her secret care of others",
+        action: () => actions.changeScene("secret_thanks")
       },
       {
-        text: "Suggest starting small with one student",
-        action: () => actions.changeScene("small_beginning")
+        text: "Ask to help with her charitable works",
+        action: () => actions.changeScene("charity_assistance")
+      }
+    ]
+  },
+
+  confident_entry: {
+    title: "Entering with Purpose",
+    description: "Understanding the true nature of the test ahead, you enter the temple with confidence born not of arrogance, but of clear purpose. You know who you are and what you stand for, and this inner certainty radiates from you as you approach the dragon's chamber.\n\nAuraxes immediately senses this change in your bearing and regards you with keen interest.",
+    choices: [
+      {
+        text: "State your purpose clearly",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("purpose_declaration");
+        }
+      },
+      {
+        text: "Wait respectfully for her to speak first",
+        action: () => actions.changeScene("respectful_waiting")
+      },
+      {
+        text: "Ask to prove your worthiness",
+        action: () => actions.changeScene("worthiness_request")
       }
     ]
   }
