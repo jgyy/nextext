@@ -12,6 +12,7 @@ import { createForestScenesPart2 } from "./forestScenesPart2";
 import { createExpansionScenes, createUtilityScenes } from "./expansionScenes";
 import { createConnectorScenes } from "./connectorScenes";
 import { createBridgeScenes } from "./bridgeScenes";
+import createMissingScenes from "./missingScenes";
 
 export const getAllScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => {
   const allScenes = {
@@ -29,6 +30,8 @@ export const getAllScenes = (gameState: GameState, actions: GameActions): Record
     ...createConnectorScenes(gameState, actions),
     ...createBridgeScenes(gameState, actions),
     ...createMissingScenes(gameState, actions),
+    ...createLocalMissingScenes(gameState, actions),
+    ...createEnhancedScenes(gameState, actions),
     ...createPlaceholderScenes(gameState, actions)
   };
 
