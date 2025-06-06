@@ -41,8 +41,7 @@ export const createMissingScenesFix = (gameState: GameState, actions: GameAction
       },
       {
         text: "Prepare to prove your commitment to learning",
-        action: () => actions.changeScene("learning_preparation");
-        }
+        action: () => actions.changeScene("learning_preparation")
       },
       {
         text: "Think of ways to end her isolation",

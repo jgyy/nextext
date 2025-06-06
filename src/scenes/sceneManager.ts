@@ -10,6 +10,7 @@ import { createEndingScenes } from "./endingScenes";
 import { createAdditionalScenes } from "./additionalScenes";
 import { createForestScenesPart2 } from "./forestScenesPart2";
 import { createExpansionScenes, createUtilityScenes } from "./expansionScenes";
+import { createExpansionScenesFix } from "./expansionScenesFix";
 import { createConnectorScenes } from "./connectorScenes";
 import { createBridgeScenes } from "./bridgeScenes";
 import { createMissingScenes } from "./missingScenes";
