@@ -138,7 +138,7 @@ export const createMissingScenes = (gameState: GameState, actions: GameActions):
       },
       {
         text: "Plan to share this growth with the dragon",
-        action: () => actions.changeScene("growth_sharing");
+        action: () => actions.changeScene("growth_sharing")
       },
       {
         text: "Continue your quest with deeper self-knowledge",

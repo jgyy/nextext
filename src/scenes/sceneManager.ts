@@ -12,7 +12,7 @@ import { createForestScenesPart2 } from "./forestScenesPart2";
 import { createExpansionScenes, createUtilityScenes } from "./expansionScenes";
 import { createConnectorScenes } from "./connectorScenes";
 import { createBridgeScenes } from "./bridgeScenes";
-import createMissingScenes from "./missingScenes";
+import { createMissingScenes } from "./missingScenes";
 
 export const getAllScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => {
   const allScenes = {
@@ -30,7 +30,7 @@ export const getAllScenes = (gameState: GameState, actions: GameActions): Record
     ...createConnectorScenes(gameState, actions),
     ...createBridgeScenes(gameState, actions),
     ...createMissingScenes(gameState, actions),
-    ...createLocalMissingScenes(gameState, actions),
+    ...createAdditionalMissingScenes(gameState, actions),
     ...createEnhancedScenes(gameState, actions),
     ...createPlaceholderScenes(gameState, actions)
   };
@@ -38,7 +38,7 @@ export const getAllScenes = (gameState: GameState, actions: GameActions): Record
   return allScenes;
 };
 
-const createMissingScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => ({
+const createAdditionalMissingScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => ({
   dragon_insight: {
     title: "Understanding the Dragon's Heart",
     description: "The Crystal of Visions reveals the truth about Auraxes - centuries of loneliness, watching students come and go, seeing the world slowly forget the value of wisdom and learning. You witness her pain as wars erupted, libraries burned, and knowledge was abandoned for material pursuits.\n\nShe is not a monster hoarding treasure, but a heartbroken teacher who has been waiting for someone who truly values what she protects. Your heart fills with compassion for this ancient guardian of wisdom.",
@@ -172,6 +172,89 @@ const createMissingScenes = (gameState: GameState, actions: GameActions): Record
   }
 });
 
+const createEnhancedScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => ({
+  treasure_meditation: {
+    title: "Contemplating True Wealth",
+    description: "You sit in quiet meditation, considering what treasure truly means. As you reflect on your journey, you realize that the greatest riches you've found so far aren't gold or jewels, but the wisdom from the hermit, the blessing of the unicorn, and the growing understanding of your own character.\n\nThis realization brings a sense of peace and clarity about what you truly seek from the dragon.",
+    choices: [
+      {
+        text: "Enter the temple seeking wisdom, not gold",
+        action: () => {
+          actions.addScore(100);
+          actions.addAchievement("True Seeker");
+          actions.changeScene("enlightened_approach");
+        }
+      },
+      {
+        text: "Understand that the journey itself is the treasure",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("journey_realization");
+        }
+      },
+      {
+        text: "Continue with clarity about your values",
+        action: () => actions.changeScene("main_hall")
+      }
+    ]
+  },
+
+  enlightened_approach: {
+    title: "The Wisdom Seeker",
+    description: "You approach the temple with complete clarity about your purpose. You're not here for material wealth, but for the wisdom and understanding that can help you grow as a person and serve others better. This shift in perspective seems to change the very air around you - the temple's magic responds to your pure intentions.",
+    choices: [
+      {
+        text: "Enter with humble confidence",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("main_hall");
+        }
+      },
+      {
+        text: "Take a moment to prepare mentally for the test ahead",
+        action: () => actions.changeScene("mental_preparation")
+      }
+    ]
+  },
+
+  mental_preparation: {
+    title: "Preparing Mind and Spirit",
+    description: "You spend time centering yourself, preparing for whatever test the dragon might present. You review the lessons you've learned, the relationships you've built, and the growth you've experienced. You feel ready to face any challenge with wisdom and compassion.",
+    choices: [
+      {
+        text: "Enter the temple as a prepared seeker",
+        action: () => {
+          actions.heal(25);
+          actions.addScore(50);
+          actions.changeScene("main_hall");
+        }
+      }
+    ]
+  },
+
+  sympathy_expressed: {
+    title: "Shared Understanding",
+    description: "Your genuine sympathy for the dragon's isolation touches something deep within Auraxes. Her ancient eyes glisten with emotion - when was the last time someone saw her pain rather than just her power? 'You understand,' she whispers. 'The weight of centuries, the loneliness of knowledge that none wish to share... Yes, you truly understand.'",
+    choices: [
+      {
+        text: "Offer to learn from her and ease her solitude",
+        action: () => {
+          actions.addScore(150);
+          actions.changeScene("companion_offering");
+        }
+      },
+      {
+        text: "Ask how you can help preserve her knowledge",
+        action: () => actions.changeScene("knowledge_preservation")
+      },
+      {
+        text: "Share your own experiences of loneliness",
+        action: () => actions.changeScene("mutual_understanding")
+      }
+    ]
+  }
+});
+
 const createPlaceholderScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => ({
   placeholder_scene: {
     title: "Continuing Your Journey",
@@ -188,6 +271,73 @@ const createPlaceholderScenes = (gameState: GameState, actions: GameActions): Re
       {
         text: "Seek wisdom",
         action: () => actions.changeScene("cottage")
+      }
+    ]
+  },
+
+  journey_realization: {
+    title: "The True Adventure",
+    description: "You realize that the real treasure has been the journey itself - every choice that helped you grow, every creature that taught you something new, every moment that expanded your understanding of yourself and the world. This adventure has transformed you from a simple treasure seeker into someone with wisdom and purpose.",
+    choices: [
+      {
+        text: "Embrace this transformation completely",
+        action: () => {
+          actions.addScore(100);
+          actions.addAchievement("Transformed Hero");
+          actions.changeScene("transformation_complete");
+        }
+      },
+      {
+        text: "Enter the temple as your new, wiser self",
+        action: () => actions.changeScene("main_hall")
+      }
+    ]
+  },
+
+  transformation_complete: {
+    title: "The Hero Reborn",
+    description: "Your transformation is complete. You are no longer the person who began this quest seeking gold and glory. You have become someone who values wisdom, compassion, and the growth that comes from helping others. This inner change is more valuable than any external treasure could ever be.",
+    choices: [
+      {
+        text: "Meet the dragon as your true self",
+        action: () => {
+          actions.addScore(200);
+          actions.changeScene("authentic_meeting");
+        }
+      },
+      {
+        text: "Continue your quest with newfound purpose",
+        action: () => actions.changeScene("main_hall")
+      }
+    ]
+  },
+
+  authentic_meeting: {
+    title: "Meeting of True Spirits",
+    description: "When you enter the dragon's presence as your authentic, transformed self, Auraxes immediately recognizes the change in you. 'You have already found the greatest treasure,' she says with wonder. 'You have become someone worthy of wisdom itself. The test is already complete.'",
+    choices: [
+      {
+        text: "Accept the role of wisdom keeper",
+        action: () => {
+          actions.addScore(500);
+          actions.addAchievement("Wisdom Keeper");
+          actions.changeScene("keeper_ending");
+        }
+      },
+      {
+        text: "Ask to share this wisdom with the world",
+        action: () => actions.changeScene("world_teacher")
+      }
+    ]
+  },
+
+  keeper_ending: {
+    title: "The Wisdom Keeper",
+    description: `You accept the sacred role of Wisdom Keeper, becoming a guardian of knowledge and truth for future generations. Your transformation from treasure seeker to wisdom keeper represents the highest achievement possible.\n\nFinal Score: ${gameState.score}\nAchievements: ${gameState.achievements.join(", ")}\n\nYou have achieved the ultimate goal - becoming someone who creates treasure through wisdom rather than seeking it through conquest.`,
+    choices: [
+      {
+        text: "Begin your new life as a keeper of wisdom",
+        action: actions.restartGame
       }
     ]
   }
