@@ -13,6 +13,8 @@ import { createExpansionScenes, createUtilityScenes } from "./expansionScenes";
 import { createConnectorScenes } from "./connectorScenes";
 import { createBridgeScenes } from "./bridgeScenes";
 import { createMissingScenes } from "./missingScenes";
+import { createMissingScenesFix } from "./missingScenesFix";
+import { createGameExpansion } from "./gameExpansion";
 
 export const getAllScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => {
   const allScenes = {
@@ -30,9 +32,12 @@ export const getAllScenes = (gameState: GameState, actions: GameActions): Record
     ...createConnectorScenes(gameState, actions),
     ...createBridgeScenes(gameState, actions),
     ...createMissingScenes(gameState, actions),
+    ...createMissingScenesFix(gameState, actions),
+    ...createGameExpansion(gameState, actions),
     ...createAdditionalMissingScenes(gameState, actions),
     ...createEnhancedScenes(gameState, actions),
-    ...createPlaceholderScenes(gameState, actions)
+    ...createPlaceholderScenes(gameState, actions),
+    ...createExpandedScenes(gameState, actions)
   };
 
   return allScenes;
@@ -338,6 +343,198 @@ const createPlaceholderScenes = (gameState: GameState, actions: GameActions): Re
       {
         text: "Begin your new life as a keeper of wisdom",
         action: actions.restartGame
+      }
+    ]
+  }
+});
+
+const createExpandedScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => ({
+  world_sharing: {
+    title: "Tales from Beyond",
+    description: "You share stories of the world beyond the temple walls - how knowledge is still cherished in hidden corners, how young minds still hunger for wisdom, and how the seeds of learning continue to sprout even in difficult times. Auraxes listens with rapt attention, her eyes brightening with each tale.",
+    choices: [
+      {
+        text: "Tell her about the hermit's dedication",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("hermit_tale");
+        }
+      },
+      {
+        text: "Share the unicorn's faith in purity",
+        action: () => actions.changeScene("unicorn_tale")
+      },
+      {
+        text: "Describe the fairies' preservation of ancient magic",
+        action: () => actions.changeScene("fairy_tale")
+      }
+    ]
+  },
+
+  dragon_dreams: {
+    title: "Dreams of an Ancient Heart",
+    description: "Auraxes shares her deepest dreams with surprising vulnerability. 'I dream of halls filled with eager students again, of knowledge flowing freely between species, of wisdom being valued above wealth. But mostly... I dream of not being alone with these treasures of learning.'",
+    choices: [
+      {
+        text: "Promise to help make these dreams reality",
+        action: () => {
+          actions.addScore(150);
+          actions.addAchievement("Dream Weaver");
+          actions.changeScene("dream_promise");
+        }
+      },
+      {
+        text: "Suggest starting small with a few dedicated students",
+        action: () => actions.changeScene("small_beginnings")
+      },
+      {
+        text: "Offer to be her first student in centuries",
+        action: () => actions.changeScene("first_student")
+      }
+    ]
+  },
+
+  companion_offering: {
+    title: "A Promise of Companionship",
+    description: "Your offer to ease the dragon's solitude through companionship and learning brings tears to her ancient eyes. 'You would stay? Not just take knowledge and leave, but remain to learn and grow together? It has been so long since anyone made such an offer...'",
+    choices: [
+      {
+        text: "Commit to a year of study and companionship",
+        action: () => {
+          actions.addScore(200);
+          actions.changeScene("year_commitment");
+        }
+      },
+      {
+        text: "Suggest dividing time between learning and bringing others",
+        action: () => actions.changeScene("balanced_approach")
+      },
+      {
+        text: "Promise to make the temple a living center of learning again",
+        action: () => actions.changeScene("temple_revival")
+      }
+    ]
+  },
+
+  knowledge_preservation: {
+    title: "Preserving Ancient Wisdom",
+    description: "When you ask about preserving her knowledge, Auraxes becomes animated with hope. 'The knowledge here is too vast for any one mind, but together we could create something lasting - books that teach themselves, crystals that hold memories, songs that carry wisdom across generations.'",
+    choices: [
+      {
+        text: "Learn the art of knowledge crystallization",
+        action: () => {
+          actions.addScore(100);
+          actions.changeScene("crystal_learning");
+        }
+      },
+      {
+        text: "Suggest creating a network of knowledge keepers",
+        action: () => actions.changeScene("keeper_network")
+      },
+      {
+        text: "Offer to transcribe the most important teachings",
+        action: () => actions.changeScene("transcription_offer")
+      }
+    ]
+  },
+
+  mutual_understanding: {
+    title: "Shared Solitude",
+    description: "As you share your own experiences of loneliness and isolation, a deep connection forms between you and Auraxes. She realizes that wisdom often comes with the price of being misunderstood, that those who see deeply often stand apart. Your mutual understanding creates a bond stronger than mere teacher and student.",
+    choices: [
+      {
+        text: "Acknowledge the bond between you",
+        action: () => {
+          actions.addScore(150);
+          actions.addAchievement("Kindred Spirits");
+          actions.changeScene("bond_acknowledged");
+        }
+      },
+      {
+        text: "Suggest that together you're stronger",
+        action: () => actions.changeScene("strength_together")
+      },
+      {
+        text: "Promise to never let her be alone again",
+        action: () => actions.changeScene("eternal_companionship")
+      }
+    ]
+  },
+
+  world_teacher: {
+    title: "Teaching the World",
+    description: "Your request to share the dragon's wisdom with the world resonates deeply with Auraxes. 'Yes! This is what I've been waiting for - not someone to take my treasure, but someone to help me give it to all who need it. Together, we can remind the world why wisdom matters.'",
+    choices: [
+      {
+        text: "Plan a traveling school of wisdom",
+        action: () => {
+          actions.addScore(250);
+          actions.changeScene("traveling_school");
+        }
+      },
+      {
+        text: "Suggest establishing schools in major cities",
+        action: () => actions.changeScene("city_schools")
+      },
+      {
+        text: "Propose training other teachers first",
+        action: () => actions.changeScene("teacher_training")
+      }
+    ]
+  },
+
+  selflessness_practice: {
+    title: "Practicing Selfless Choices",
+    description: "You spend time mentally rehearsing selfless choices, imagining scenarios where personal gain conflicts with the greater good. Each mental exercise strengthens your resolve to choose wisely when the moment comes. You think of all those who could benefit from the dragon's wisdom if you prove worthy.",
+    choices: [
+      {
+        text: "Feel ready for any test",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("test_ready");
+        }
+      },
+      {
+        text: "Enter the temple with practiced wisdom",
+        action: () => actions.changeScene("main_hall")
+      }
+    ]
+  },
+
+  character_creation: {
+    title: "Choose Your Path",
+    description: "Before beginning your quest for the Golden Orb, you must decide what kind of adventurer you wish to be. This choice will influence how others perceive you and what opportunities become available throughout your journey.\n\n(Note: This is the enhanced game mode with additional features like character classes, skills, and relationships. Choose 'Start without a defined background' for the traditional experience.)",
+    choices: [
+      {
+        text: "Begin as a Scholar seeking knowledge",
+        action: () => {
+          actions.addToInventory("Scholar's Journal");
+          actions.addAchievement("Path of Learning");
+          actions.addScore(25);
+          actions.changeScene("scholar_background");
+        }
+      },
+      {
+        text: "Start as a Noble with diplomatic training",
+        action: () => {
+          actions.addToInventory("Noble Seal");
+          actions.addAchievement("Born to Lead");
+          actions.addScore(25);
+          actions.changeScene("noble_background");
+        }
+      },
+      {
+        text: "Begin as a Wanderer with survival skills",
+        action: () => {
+          actions.addToInventory("Traveler's Kit");
+          actions.addAchievement("Child of the Road");
+          actions.addScore(25);
+          actions.changeScene("wanderer_background");
+        }
+      },
+      {
+        text: "Start without a defined background (Traditional opening)",
+        action: () => actions.changeScene("start")
       }
     ]
   }
