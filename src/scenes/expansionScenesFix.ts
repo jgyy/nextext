@@ -2,28 +2,6 @@
 import { Scene, GameState, GameActions } from "../types/game";
 
 export const createExpansionScenesFix = (gameState: GameState, actions: GameActions): Record<string, Scene> => ({
-  scholar_background: {
-    title: "The Scholar's Journey Begins",
-    description: "Your years of study have prepared you well for this quest. You carry ancient maps, know forgotten languages, and understand the historical significance of the Golden Orb. However, your physical training has been limited, and you may need to rely more on wit than strength.\n\nThe weight of your books and scrolls is familiar and comforting. You know that knowledge is power, and you have plenty of it.",
-    choices: [
-      {
-        text: "Use your knowledge to research the forest's history",
-        action: () => {
-          actions.addScore(50);
-          actions.changeScene("forest_research");
-        }
-      },
-      {
-        text: "Seek out the hermit for scholarly discussion",
-        action: () => actions.changeScene("cottage")
-      },
-      {
-        text: "Enter the forest with confidence in your preparation",
-        action: () => actions.changeScene("forest_path")
-      }
-    ]
-  },
-
   forest_research: {
     title: "Delving into Ancient Texts",
     description: "You spend time cross-referencing your maps and texts about the Enchanted Forest. Your research reveals that this forest was once home to a great alliance between dragons and scholars. The temple you seek was originally a center of learning, not a treasure vault.\n\nThis knowledge changes your entire perspective on the quest ahead.",
@@ -42,135 +20,6 @@ export const createExpansionScenesFix = (gameState: GameState, actions: GameActi
       },
       {
         text: "Enter the forest with new understanding",
-        action: () => actions.changeScene("forest_path")
-      }
-    ]
-  },
-
-  noble_background: {
-    title: "Noblesse Oblige",
-    description: "Your noble upbringing has taught you the importance of honor, duty, and protecting those who cannot protect themselves. You carry the responsibility of your family name and the expectation that you will use any power you gain for the betterment of all.\n\nYour diplomatic training and understanding of court politics may prove invaluable in negotiations.",
-    choices: [
-      {
-        text: "Vow to use the Golden Orb for your people's benefit",
-        action: () => {
-          actions.addScore(75);
-          actions.addAchievement("Noble Purpose");
-          actions.changeScene("noble_vow");
-        }
-      },
-      {
-        text: "Consider the political implications of your quest",
-        action: () => actions.changeScene("political_considerations")
-      },
-      {
-        text: "Approach the cottage to speak with the hermit as an equal",
-        action: () => actions.changeScene("cottage")
-      }
-    ]
-  },
-
-  noble_vow: {
-    title: "A Sacred Promise",
-    description: "You make a solemn vow that any power or knowledge gained from this quest will be used for the benefit of all people, not just the nobility. This promise feels like a sacred oath, binding you to a higher purpose than mere adventure.\n\nThe weight of responsibility settles on your shoulders, but it feels right.",
-    choices: [
-      {
-        text: "Begin your quest with noble purpose",
-        action: () => {
-          actions.addScore(50);
-          actions.changeScene("forest_path");
-        }
-      },
-      {
-        text: "Seek the hermit's wisdom on fulfilling such vows",
-        action: () => actions.changeScene("cottage")
-      }
-    ]
-  },
-
-  political_considerations: {
-    title: "The Game of Thrones",
-    description: "You consider how possession of the Golden Orb might shift the balance of power between kingdoms. Used wisely, it could bring peace and prosperity. Used poorly, it could spark wars and conquest. Your diplomatic training helps you see all the angles of this complex situation.",
-    choices: [
-      {
-        text: "Plan to use the Orb to unite the kingdoms",
-        action: () => {
-          actions.addScore(50);
-          actions.changeScene("unity_planning");
-        }
-      },
-      {
-        text: "Consider keeping the Orb's power neutral",
-        action: () => actions.changeScene("neutrality_planning")
-      },
-      {
-        text: "Focus on the quest itself for now",
-        action: () => actions.changeScene("forest_path")
-      }
-    ]
-  },
-
-  wanderer_background: {
-    title: "The Road Less Traveled",
-    description: "Your life on the road has taught you to read the subtle signs of danger and opportunity. You understand the wild places of the world and have learned that the greatest treasures are often found in the most unexpected places.\n\nYour practical skills and adaptability will serve you well in the challenges ahead.",
-    choices: [
-      {
-        text: "Use your survival skills to find hidden paths",
-        action: () => {
-          actions.addScore(50);
-          actions.changeScene("survival_advantage");
-        }
-      },
-      {
-        text: "Trust your instincts about the forest's dangers",
-        action: () => actions.changeScene("instinct_guidance")
-      },
-      {
-        text: "Enter the forest with wanderer's wisdom",
-        action: () => actions.changeScene("forest_path")
-      }
-    ]
-  },
-
-  survival_advantage: {
-    title: "Reading the Wild",
-    description: "Your trained eye spots signs that others would miss - broken twigs indicating recent passage, unusual plant growth suggesting magical influence, and animal behaviors that hint at hidden dangers or opportunities.\n\nYou quickly identify several safe paths through the forest that avoid the most dangerous areas.",
-    choices: [
-      {
-        text: "Take the path of least resistance",
-        action: () => {
-          actions.addScore(50);
-          actions.changeScene("safe_path");
-        }
-      },
-      {
-        text: "Follow the signs of magical creatures",
-        action: () => actions.changeScene("magical_tracking")
-      },
-      {
-        text: "Choose the most direct route despite dangers",
-        action: () => actions.changeScene("dangerous_shortcut")
-      }
-    ]
-  },
-
-  instinct_guidance: {
-    title: "The Wanderer's Intuition",
-    description: "Your instincts, honed by years of travel, tell you this forest is unlike any you've encountered. There's an intelligence here, a watchfulness. You sense that the forest itself is testing visitors, and that approaching with respect rather than conquest is key.",
-    choices: [
-      {
-        text: "Move through the forest with reverence",
-        action: () => {
-          actions.addScore(75);
-          actions.changeScene("respectful_journey");
-        }
-      },
-      {
-        text: "Try to communicate with the forest spirit",
-        action: () => actions.changeScene("forest_communication")
-      },
-      {
-        text: "Proceed cautiously but purposefully",
         action: () => actions.changeScene("forest_path")
       }
     ]
@@ -198,6 +47,197 @@ export const createExpansionScenesFix = (gameState: GameState, actions: GameActi
     ]
   },
 
+  documentation_begin: {
+    title: "The Scholar's Chronicle",
+    description: "You begin documenting your journey with scholarly precision. Your journal will not only record events but analyze patterns, preserve knowledge, and perhaps reveal hidden connections between seemingly unrelated encounters.",
+    choices: [
+      {
+        text: "Focus on magical phenomena documentation",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("magical_documentation");
+        }
+      },
+      {
+        text: "Record cultural and historical observations",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("cultural_documentation");
+        }
+      },
+      {
+        text: "Analyze the psychology of beings you meet",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("psychological_study");
+        }
+      },
+      {
+        text: "Create maps and geographical surveys",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("cartographic_work");
+        }
+      }
+    ]
+  },
+
+  knowledge_seeking: {
+    title: "The Quest for Ancient Sources",
+    description: "Your scholarly instincts guide you to seek out repositories of ancient knowledge. You've heard rumors of several locations where wisdom from ages past might still be preserved.",
+    choices: [
+      {
+        text: "Seek the Hidden Library of the First Mages",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("hidden_library_quest");
+        }
+      },
+      {
+        text: "Find the Crystal Caves of Memory",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("memory_caves_quest");
+        }
+      },
+      {
+        text: "Visit the Oracle of the Northern Peaks",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("oracle_quest");
+        }
+      },
+      {
+        text: "Continue to the hermit for more immediate guidance",
+        action: () => actions.changeScene("cottage")
+      }
+    ]
+  },
+
+  magical_documentation: {
+    title: "Documenting the Mystical",
+    description: "You focus your scholarly efforts on cataloging the magical phenomena you encounter. Each spell, enchantment, and mystical creature is carefully recorded with detailed observations about their nature and behavior.",
+    choices: [
+      {
+        text: "Study the ambient magic of the forest",
+        action: () => {
+          actions.addScore(50);
+          actions.addToInventory("Magical Field Notes");
+          actions.changeScene("ambient_magic_study");
+        }
+      },
+      {
+        text: "Document magical creature behaviors",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("creature_documentation");
+        }
+      },
+      {
+        text: "Continue your journey with enhanced understanding",
+        action: () => actions.changeScene("forest_path")
+      }
+    ]
+  },
+
+  cultural_documentation: {
+    title: "Recording Cultural Heritage",
+    description: "You dedicate yourself to preserving the cultural practices and traditions of the various beings you encounter. This anthropological approach reveals deep connections between different species and their shared history.",
+    choices: [
+      {
+        text: "Interview forest inhabitants about their traditions",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("cultural_interviews");
+        }
+      },
+      {
+        text: "Study ancient symbols and their meanings",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("symbol_studies");
+        }
+      },
+      {
+        text: "Continue with your newfound cultural insights",
+        action: () => actions.changeScene("forest_path")
+      }
+    ]
+  },
+
+  psychological_study: {
+    title: "The Mind's Mysteries",
+    description: "You apply psychological analysis to understand the motivations and behaviors of those you meet. This approach helps you see beyond surface appearances to the deeper truths that drive actions.",
+    choices: [
+      {
+        text: "Analyze the dragon's centuries of isolation",
+        action: () => {
+          actions.addScore(100);
+          actions.changeScene("dragon_psychology");
+        }
+      },
+      {
+        text: "Study the hermit's choice of solitude",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("hermit_psychology");
+        }
+      },
+      {
+        text: "Continue with psychological insights",
+        action: () => actions.changeScene("forest_path")
+      }
+    ]
+  },
+
+  cartographic_work: {
+    title: "Mapping the Unmappable",
+    description: "You begin creating detailed maps of the mystical forest, noting how paths seem to shift and change. Your cartographic work reveals patterns in the seemingly chaotic magical landscape.",
+    choices: [
+      {
+        text: "Map the stable paths and landmarks",
+        action: () => {
+          actions.addToInventory("Mystical Forest Map");
+          actions.addScore(75);
+          actions.changeScene("stable_mapping");
+        }
+      },
+      {
+        text: "Chart the magical fluctuations",
+        action: () => {
+          actions.addScore(100);
+          actions.changeScene("magical_cartography");
+        }
+      },
+      {
+        text: "Use your maps to find a better route",
+        action: () => actions.changeScene("optimized_path")
+      }
+    ]
+  },
+
+  political_considerations: {
+    title: "The Game of Thrones",
+    description: "You consider how possession of the Golden Orb might shift the balance of power between kingdoms. Used wisely, it could bring peace and prosperity. Used poorly, it could spark wars and conquest. Your diplomatic training helps you see all the angles of this complex situation.",
+    choices: [
+      {
+        text: "Plan to use the Orb to unite the kingdoms",
+        action: () => {
+          actions.addScore(50);
+          actions.changeScene("unity_planning");
+        }
+      },
+      {
+        text: "Consider keeping the Orb's power neutral",
+        action: () => actions.changeScene("neutrality_planning")
+      },
+      {
+        text: "Focus on the quest itself for now",
+        action: () => actions.changeScene("forest_path")
+      }
+    ]
+  },
+
   unity_planning: {
     title: "A Vision of Unity",
     description: "You envision using the Golden Orb's power to create lasting peace between the warring kingdoms. Treaties could be enforced, resources shared fairly, and conflicts resolved through wisdom rather than warfare.\n\nThis noble goal strengthens your resolve to succeed in your quest.",
@@ -216,158 +256,184 @@ export const createExpansionScenesFix = (gameState: GameState, actions: GameActi
     ]
   },
 
-  hermit_tale: {
-    title: "The Hermit's Dedication",
-    description: "You tell Auraxes about Eldric the hermit, how he has spent decades alone preserving knowledge, freely sharing wisdom with any who seek it. You describe his joy when discussing ancient lore and his sadness that so few come to learn anymore.\n\nAuraxes listens intently, clearly moved by the parallel to her own situation.",
+  neutrality_planning: {
+    title: "The Neutral Path",
+    description: "You decide that the Golden Orb's power should remain neutral, perhaps hidden or protected by an impartial guardian. This would prevent any one kingdom from gaining too much power and disrupting the balance.",
     choices: [
       {
-        text: "Suggest the hermit could be her ally",
+        text: "Commit to this neutral approach",
         action: () => {
-          actions.addScore(100);
-          actions.changeScene("hermit_alliance");
+          actions.addScore(75);
+          actions.addAchievement("Neutral Guardian");
+          actions.changeScene("neutral_commitment");
         }
       },
       {
-        text: "Share more stories of knowledge seekers",
-        action: () => actions.changeScene("more_stories")
+        text: "Consider who could be trusted as guardian",
+        action: () => actions.changeScene("guardian_considerations")
       },
       {
-        text: "Ask if she knows of the hermit",
-        action: () => actions.changeScene("hermit_connection")
+        text: "Begin your quest with this plan",
+        action: () => actions.changeScene("forest_path")
       }
     ]
   },
 
-  test_ready: {
-    title: "Prepared for Any Trial",
-    description: "After your mental preparations, you feel ready to face whatever test the dragon might present. Your values are clear, your purpose is noble, and your commitment to choosing wisdom over wealth is unshakeable.\n\nYou stand at the temple entrance with quiet confidence.",
+  noble_vow: {
+    title: "A Sacred Promise",
+    description: "You make a solemn vow that any power or knowledge gained from this quest will be used for the benefit of all people, not just the nobility. This promise feels like a sacred oath, binding you to a higher purpose than mere adventure.\n\nThe weight of responsibility settles on your shoulders, but it feels right.",
     choices: [
       {
-        text: "Enter the temple with serene confidence",
+        text: "Begin your quest with noble purpose",
         action: () => {
-          actions.addScore(100);
-          actions.changeScene("main_hall");
+          actions.addScore(50);
+          actions.changeScene("forest_path");
         }
       },
       {
-        text: "Take one final moment to center yourself",
-        action: () => {
-          actions.heal(25);
-          actions.changeScene("final_centering");
-        }
+        text: "Seek the hermit's wisdom on fulfilling such vows",
+        action: () => actions.changeScene("cottage")
       }
     ]
   },
 
-  dream_promise: {
-    title: "Sworn to Dreams",
-    description: "You make a heartfelt promise to help Auraxes realize her dreams of renewed teaching and ended isolation. The sincerity in your voice and the determination in your eyes convince her that you truly mean it.\n\n'Your words give me hope I had forgotten how to feel,' she says softly.",
+  ally_seeking: {
+    title: "Building Alliances",
+    description: "Your vision of unity requires allies from all walks of life. You must decide which groups to approach first, as each alliance will affect how others perceive your cause.",
     choices: [
       {
-        text: "Begin planning how to fulfill this promise",
+        text: "Seek alliance with the Merchant Guilds",
         action: () => {
-          actions.addScore(100);
-          actions.changeScene("promise_planning");
+          actions.addScore(75);
+          actions.changeScene("merchant_alliance");
         }
       },
       {
-        text: "Ask what first steps she recommends",
-        action: () => actions.changeScene("first_steps")
-      },
-      {
-        text: "Seal the promise with a magical oath",
-        action: () => actions.changeScene("magical_oath")
-      }
-    ]
-  },
-
-  small_beginnings: {
-    title: "Seeds of Change",
-    description: "Your suggestion to start small resonates with Auraxes. 'Yes, perhaps that is wisdom - not trying to recreate the past glory all at once, but planting seeds that can grow naturally. Even one dedicated student could become a teacher to others.'",
-    choices: [
-      {
-        text: "Volunteer to be that first student",
+        text: "Approach the Circle of Mages",
         action: () => {
-          actions.addScore(150);
-          actions.changeScene("first_student");
+          actions.addScore(75);
+          actions.changeScene("mage_alliance");
         }
       },
       {
-        text: "Suggest recruiting from nearby villages",
-        action: () => actions.changeScene("village_recruitment")
-      },
-      {
-        text: "Propose a gradual expansion plan",
-        action: () => actions.changeScene("expansion_planning")
-      }
-    ]
-  },
-
-  first_student: {
-    title: "The First in Centuries",
-    description: "Auraxes's eyes fill with joy as you offer to be her first student in hundreds of years. 'You would honor me greatly,' she says, her voice thick with emotion. 'To teach again, to share knowledge with an eager mind... this is worth more than all the gold in my hoard.'",
-    choices: [
-      {
-        text: "Begin your studies immediately",
+        text: "Rally the Common Folk",
         action: () => {
-          actions.addScore(200);
-          actions.addAchievement("Dragon's Pupil");
-          actions.changeScene("study_beginning");
+          actions.addScore(75);
+          actions.changeScene("common_alliance");
         }
       },
       {
-        text: "Ask what subjects she most wants to teach",
-        action: () => actions.changeScene("curriculum_discussion")
-      },
-      {
-        text: "Suggest creating a formal teacher-student bond",
-        action: () => actions.changeScene("formal_bond")
-      }
-    ]
-  },
-
-  traveling_school: {
-    title: "Knowledge on the Move",
-    description: "Together, you and Auraxes develop a plan for a traveling school that brings wisdom to those who need it most. Using her ability to fly and your knowledge of the world's communities, you could reach remote villages, war-torn regions, and forgotten peoples.\n\nThis approach would spread knowledge while keeping Auraxes safe from those who might still see her as a monster to be slain.",
-    choices: [
-      {
-        text: "Begin planning the first journey",
+        text: "Negotiate with the Forest Tribes",
         action: () => {
-          actions.addScore(300);
-          actions.changeScene("journey_planning");
+          actions.addScore(75);
+          actions.changeScene("tribal_alliance");
         }
-      },
-      {
-        text: "Recruit other teachers for the traveling school",
-        action: () => actions.changeScene("teacher_recruitment")
-      },
-      {
-        text: "Create magical tools for remote teaching",
-        action: () => actions.changeScene("magical_education")
-      }
-    ]
-  },
-
-  bond_acknowledged: {
-    title: "Kindred Spirits United",
-    description: "As you acknowledge the deep connection between you and Auraxes, something magical happens. A golden thread of light appears, connecting your heart to hers - a visible manifestation of your bond. You are no longer just teacher and student, but true companions in the pursuit of wisdom.\n\n'This bond is ancient magic,' Auraxes explains with wonder. 'It only forms between those whose souls truly understand each other.'",
-    choices: [
-      {
-        text: "Embrace the magical connection",
-        action: () => {
-          actions.addScore(250);
-          actions.addAchievement("Soul Bonded");
-          actions.changeScene("magical_bond");
-        }
-      },
-      {
-        text: "Ask about the bond's significance",
-        action: () => actions.changeScene("bond_explanation")
-      },
-      {
-        text: "Promise to honor this connection always",
-        action: () => actions.changeScene("eternal_promise")
       }
     ]
   }
 });
+
+export const createAdditionalEnhancedScenes = (gameState: GameState, actions: GameActions): Record<string, Scene> => ({
+  collect_ancient_memory: {
+    title: "Echo of the Past",
+    description: "You discover a memory crystal containing the preserved thoughts of an ancient scholar. As you touch it, visions of the past flood your mind, revealing secrets about the true nature of the Golden Orb.",
+    choices: [
+      {
+        text: "Absorb the complete memory",
+        action: () => {
+          if (gameState.memoriesUnlocked) {
+            gameState.memoriesUnlocked.push("The Scholar's Last Testament");
+          }
+          actions.addScore(100);
+          actions.changeScene("memory_absorbed");
+        }
+      },
+      {
+        text: "Share the memory with your companions",
+        action: () => {
+          actions.addScore(75);
+          actions.changeScene("memory_shared");
+        },
+        condition: () => gameState.inventory.some(item => item.includes("Companion"))
+      },
+      {
+        text: "Preserve the crystal for later study",
+        action: () => {
+          actions.addToInventory("Memory Crystal");
+          actions.changeScene("crystal_preserved");
+        }
+      }
+    ]
+  },
+
+  discover_hidden_lore: {
+    title: "The Forbidden Archive",
+    description: "Behind a secret panel, you find texts that were meant to be destroyed - they contain knowledge deemed too dangerous for common use. The information here could change everything you know about dragons, magic, and the nature of reality itself.",
+    choices: [
+      {
+        text: "Read the forbidden knowledge",
+        action: () => {
+          if (gameState.loreCollected) {
+            gameState.loreCollected.push("The Forbidden Truths");
+          }
+          actions.addScore(150);
+          actions.addAchievement("Seeker of Forbidden Knowledge");
+          actions.changeScene("forbidden_knowledge_gained");
+        }
+      },
+      {
+        text: "Seal the archive to protect others",
+        action: () => {
+          actions.addScore(100);
+          actions.addAchievement("Guardian of Dangerous Secrets");
+          actions.changeScene("archive_sealed");
+        }
+      },
+      {
+        text: "Take only what seems safe to know",
+        action: () => {
+          if (gameState.loreCollected) {
+            gameState.loreCollected.push("Selected Safe Passages");
+          }
+          actions.addScore(75);
+          actions.changeScene("partial_knowledge");
+        }
+      }
+    ]
+  },
+
+  uncover_ultimate_secret: {
+    title: "The Ultimate Revelation",
+    description: "All your collected knowledge, memories, and experiences suddenly align to reveal an ultimate truth - the Golden Orb is not an object but a state of being, achievable only through the complete integration of wisdom, compassion, and courage.",
+    choices: [
+      {
+        text: "Embrace the transformation into living wisdom",
+        action: () => {
+          if (gameState.secretsDiscovered) {
+            gameState.secretsDiscovered.push("The Golden Orb's True Nature");
+          }
+          actions.addScore(500);
+          actions.addAchievement("Embodiment of the Orb");
+          actions.changeScene("transformation_into_orb");
+        }
+      },
+      {
+        text: "Share this revelation with Auraxes",
+        action: () => {
+          actions.addScore(300);
+          actions.changeScene("revelation_shared_dragon");
+        }
+      },
+      {
+        text: "Keep the secret to prevent its misuse",
+        action: () => {
+          actions.addScore(200);
+          actions.addAchievement("Ultimate Secret Keeper");
+          actions.changeScene("secret_protected");
+        }
+      }
+    ]
+  }
+});
+
+export default createExpansionScenesFix;

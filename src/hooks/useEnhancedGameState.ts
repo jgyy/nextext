@@ -82,7 +82,7 @@ export const useEnhancedGameState = (): [EnhancedGameState, EnhancedGameActions,
   const [gameState, setGameState] = useState<EnhancedGameState>(initialEnhancedGameState);
   const [showAchievement, setShowAchievement] = useState<string | null>(null);
 
-  const addToInventory = (item: string) => {
+  const addToInventory = useCallback((item: string) => {
     setGameState(prev => ({
       ...prev,
       inventory: [...prev.inventory, item],
@@ -91,36 +91,36 @@ export const useEnhancedGameState = (): [EnhancedGameState, EnhancedGameActions,
       ...(item === "Healing Potion" && { hasPotion: true }),
       ...(item === "Unicorn's Blessing" && { hasBlessing: true }),
     }));
-  };
+  }, []);
 
-  const removeFromInventory = (item: string) => {
+  const removeFromInventory = useCallback((item: string) => {
     setGameState(prev => ({
       ...prev,
       inventory: prev.inventory.filter(i => i !== item),
       ...(item === "Healing Potion" && { hasPotion: false }),
     }));
-  };
+  }, []);
 
-  const takeDamage = (amount: number) => {
+  const takeDamage = useCallback((amount: number) => {
     setGameState(prev => ({
       ...prev,
       health: Math.max(0, prev.health - amount),
       gameOver: prev.health - amount <= 0,
     }));
-  };
+  }, []);
 
-  const heal = (amount: number) => {
+  const heal = useCallback((amount: number) => {
     setGameState(prev => ({
       ...prev,
       health: Math.min(prev.maxHealth, prev.health + amount),
     }));
-  };
+  }, []);
 
-  const changeScene = (sceneId: string) => {
+  const changeScene = useCallback((sceneId: string) => {
     setGameState(prev => ({ ...prev, currentScene: sceneId }));
-  };
+  }, []);
 
-  const restartGame = () => {
+  const restartGame = useCallback(() => {
     setGameState(prev => ({
       ...initialEnhancedGameState,
       newGamePlusLevel: prev.newGamePlusLevel + (prev.victory ? 1 : 0),
@@ -128,9 +128,9 @@ export const useEnhancedGameState = (): [EnhancedGameState, EnhancedGameActions,
       unlockedStartingPaths: prev.unlockedStartingPaths
     }));
     setShowAchievement(null);
-  };
+  }, []);
 
-  const addAchievement = (achievement: string) => {
+  const addAchievement = useCallback((achievement: string) => {
     setGameState(prev => {
       if (!prev.achievements.includes(achievement)) {
         setShowAchievement(achievement);
@@ -145,22 +145,22 @@ export const useEnhancedGameState = (): [EnhancedGameState, EnhancedGameActions,
       }
       return prev;
     });
-  };
+  }, []);
 
-  const addScore = (points: number) => {
+  const addScore = useCallback((points: number) => {
     setGameState(prev => ({
       ...prev,
       score: prev.score + points
     }));
-  };
+  }, []);
 
-  const completeQuest = (quest: string) => {
+  const completeQuest = useCallback((quest: string) => {
     setGameState(prev => ({
       ...prev,
       questsCompleted: [...prev.questsCompleted, quest],
       score: prev.score + 250
     }));
-  };
+  }, []);
 
   const gainExperience = useCallback((amount: number) => {
     setGameState(prev => {
@@ -277,14 +277,14 @@ export const useEnhancedGameState = (): [EnhancedGameState, EnhancedGameActions,
 
   const startNewGamePlus = useCallback(() => {
     restartGame();
-  }, []);
+  }, [restartGame]);
 
   const saveGame = useCallback((slotName: string) => {
     setGameState(prev => ({
       ...prev,
       saveSlots: {
         ...prev.saveSlots,
-        [slotName]: { ...prev, saveSlots: {} } 
+        [slotName]: { ...prev, saveSlots: {} }
       }
     }));
   }, []);
@@ -295,7 +295,7 @@ export const useEnhancedGameState = (): [EnhancedGameState, EnhancedGameActions,
       if (savedState) {
         return {
           ...savedState,
-          saveSlots: prev.saveSlots 
+          saveSlots: prev.saveSlots
         };
       }
       return prev;
